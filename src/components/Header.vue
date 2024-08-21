@@ -1,0 +1,79 @@
+<template>
+  <header class="header">
+    <div class="header__container">
+      <router-link to="/"><h1 class="header__title">Meetups</h1></router-link>
+      <nav class="header__menu">
+        <router-link v-if="$route.path !== '/'" to="/" class="witharrow">
+          Вернуться к списку
+        </router-link>
+        <router-link to="/signin"> Вход </router-link>
+        <router-link to="/signup">Регистрация</router-link>
+      </nav>
+    </div>
+  </header>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+@Component
+export default class Header extends Vue {}
+</script>
+
+<style lang="sass" scoped>
+.header
+    padding: 30px 0
+    &__title
+        font-size: 40px
+        font-weight: 700
+        text-align: center
+        text-transform: uppercase
+    &__container
+        display: flex
+        flex-direction: column
+        gap:30px
+        align-items: center
+        @media(max-width: 600px)
+            align-items: stretch
+    &__menu
+        display: flex
+        flex-wrap: wrap
+        row-gap: 15px
+        align-items: center
+        text-align: center
+        @media(max-width: 600px)
+            flex-direction: column
+            flex-wrap: nowrap
+            align-items: stretch
+            text-align: left
+
+        & a
+            padding: 0 20px
+            font-size: 20px
+            position: relative
+            transition: all 0.3s ease 0s
+            &:hover
+                color: #4c6bb6
+            &:after
+                content: ""
+                position: absolute
+                left: 0
+                top: 50%
+                transform: translate(0, -50%)
+                width: 5px
+                height: 5px
+                border-radius: 50%
+                background-color: #cbd4e9
+            &.witharrow
+                &:after
+                    display: none
+                &:before
+                    content:''
+                    position: absolute
+                    left: 0
+                    top: 50%
+                    transform: translate(0, -50%) rotate(135deg)
+                    border: solid #cbd4e9
+                    border-width: 0 3px 3px 0
+                    display: inline-block
+                    padding: 3px
+</style>
