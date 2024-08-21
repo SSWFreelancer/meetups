@@ -74,8 +74,10 @@ export default class HomePage extends Vue {
 
     if (this.searchQuery) {
       const query = this.searchQuery.toLowerCase();
-      filtered = filtered.filter((meetup) =>
-        meetup.title.toLowerCase().includes(query)
+      filtered = filtered.filter(
+        (meetup) =>
+          meetup.title.toLowerCase().includes(query) ||
+          meetup.organizer.toLowerCase().includes(query)
       );
     }
 
