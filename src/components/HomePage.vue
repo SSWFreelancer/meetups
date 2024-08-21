@@ -29,12 +29,12 @@
           </div>
         </div>
       </div>
-      <div
-        class="home__cards"
-        v-for="meetup in filteredMeetups"
-        :key="meetup.id"
-      >
-        <router-link :to="{ name: 'meetup', params: { id: meetup.id } }">
+      <div class="home__cards" v-if="filteredMeetups.length > 0">
+        <router-link
+          v-for="meetup in filteredMeetups"
+          :key="meetup.id"
+          :to="{ name: 'meetup', params: { id: meetup.id } }"
+        >
           <CardThumb
             :title="meetup.title"
             :image="meetup.image"
@@ -45,6 +45,7 @@
           />
         </router-link>
       </div>
+      <div v-else class="home__none">Нет совпадений...</div>
     </div>
   </div>
 </template>
@@ -90,6 +91,19 @@ export default class HomePage extends Vue {
     display: flex
     flex-direction: column
     gap: 24px
+  &__cards
+    display: flex
+    flex-direction: column
+    gap: 24px
+  &__none
+    font-size: 40px
+    text-align: center
+    color: #4c6bb6
+    font-weight: 700
+    margin-top: 40px
+    @media(max-width: 600px)
+      font-size: 32px
+
   &__top
     display: flex
     align-items: center
