@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import Meetup from "../views/Meetup.vue";
+import MeetUp from "../views/MeetUp.vue";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -23,7 +23,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/meetup/:id",
     name: "meetup",
-    component: Meetup,
+    component: MeetUp,
     props: true,
   },
 ];

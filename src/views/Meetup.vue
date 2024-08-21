@@ -1,117 +1,20 @@
 <template>
-  <div class="card">
-    <div class="card__image">
-      <img v-if="meetup.image" :src="meetup.image" alt="" />
-      <img v-else src="@/assets/images/defaultcard.svg" alt="" />
-      <div class="card__title">{{ meetup.title }}</div>
-    </div>
-    <div class="card__container">
-      <div class="card__content">
-        <div class="card__body">
-          <div class="card__nav">
-            <a
-              v-for="(tab, index) in tabs"
-              :key="index"
-              :class="{ active: activeTab === index }"
-              @click="activeTab = index"
-              >{{ tab.name }}
-            </a>
-          </div>
-          <div v-if="activeTab === 0" class="card__description">
-            {{ meetup.description }}
-          </div>
-          <div v-if="activeTab === 1" class="programm">
-            <div class="programm__content" v-if="meetup?.agenda.length">
-              <div
-                class="programm__row"
-                v-for="item in meetup.agenda"
-                :key="item.id"
-              >
-                <p>
-                  <img
-                    v-if="item.type == 'registration'"
-                    src="@/assets/images/icons/registration.svg"
-                    alt=""
-                  />
-                  <img
-                    v-else-if="item.type == 'talk'"
-                    src="@/assets/images/icons/talk.svg"
-                    alt=""
-                  />
-                  <img
-                    v-else-if="item.coffee == 'coffee'"
-                    src="@/assets/images/icons/coffee.svg"
-                    alt=""
-                  />
-                  <img
-                    v-else
-                    src="@/assets/images/icons/registration.svg"
-                    alt=""
-                  />
-
-                  {{ item.startsAt }} - {{ item.endsAt }}
-                </p>
-                <div class="programm__text">
-                  <b>{{
-                    item.title
-                      ? item.title
-                      : item.type === "coffee"
-                      ? "Время перерыва на кофе"
-                      : item.type === "closing"
-                      ? "Закрытие"
-                      : item.type === "registration"
-                      ? "Регистрация"
-                      : "Неизвестный тип"
-                  }}</b>
-                  <span>{{ item.description }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <ul class="card__list">
-          <li>
-            <img src="@/assets/images/icons/user.svg" alt="" />
-            {{ meetup.organizer }}
-          </li>
-          <li>
-            <img src="@/assets/images/icons/location.svg" alt="" />
-            {{ meetup.place }}
-          </li>
-          <li>
-            <img src="@/assets/images/icons/cal.svg" alt="" />
-            {{ meetup.dateIso }}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <MeetUpPage/>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import meetupsData from "@/mixins/meetups.js";
-
-@Component
-export default class Meetup extends Vue {
-  activeTab = 0;
-  tabs = [{ name: "Описание" }, { name: "Программа" }];
-
-  meetup: any = {};
-  mounted() {
-    const id = Number(this.$route.params.id);
-    this.fetchMeetup(id);
+import { Component, Vue } from "vue-property-decorator";
+import MeetUpPage from "@/components/MeetUpPage.vue";
+@Component({
+  components: {
+    MeetUpPage
   }
-
-  fetchMeetup(id: number) {
-    this.meetup = meetupsData
-      .data()
-      .meetups.find((meetup: any) => meetup.id === id);
-  }
+})
+export default class MeetupView extends Vue {
 }
 </script>
 
-<style lang="sass" scoped>
+
 .programm
   &__row
       padding:  20px 0
