@@ -19,9 +19,9 @@
           $t("message.logout")
         }}</a>
         <div class="header__select">
-          <select v-model="$i18n.locale">
-            <option value="en">English</option>
+          <select v-model="selectedLanguage" @change="changeLanguage">
             <option value="ru">Русский</option>
+            <option value="en">English</option>
           </select>
         </div>
       </nav>
@@ -33,8 +33,21 @@
 import { Vue, Component } from "vue-property-decorator";
 @Component
 export default class Header extends Vue {
+  selectedLanguage: string = this.$i18n.locale;
+
+  changeLanguage() {
+    this.$i18n.locale = this.selectedLanguage;
+    localStorage.setItem("language", this.selectedLanguage);
+  }
+
   userName: string = "";
   mounted() {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      this.selectedLanguage = savedLanguage;
+      this.$i18n.locale = savedLanguage;
+    }
+
     const userString = localStorage.getItem("user");
     if (userString) {
       const user = JSON.parse(userString);
