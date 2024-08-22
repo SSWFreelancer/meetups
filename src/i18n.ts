@@ -26,7 +26,7 @@ const messages = {
   },
   ru: {
     message: {
-      logo: "Встреча",
+      logo: "Встречи",
       login: "Вход",
       signup: "Регистрация",
       logout: "Выход",
