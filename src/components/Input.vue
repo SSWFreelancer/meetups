@@ -3,17 +3,32 @@
     <label>
       <slot></slot>
     </label>
-    <input :type="type" :required="required" :placeholder="placeholder" />
+    <input
+      :type="type"
+      :required="required"
+      :placeholder="placeholder"
+      v-model="inputValue"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Model } from "vue-property-decorator";
 @Component
 export default class Input extends Vue {
   @Prop({ required: false }) type!: string;
   @Prop({ required: false }) placeholder!: string;
   @Prop({ required: false, default: true }) required!: boolean;
+
+  @Model("input", { type: String }) value!: string;
+
+  get inputValue(): string {
+    return this.value;
+  }
+
+  set inputValue(val: string) {
+    this.$emit("input", val);
+  }
 }
 </script>
 

@@ -6,8 +6,14 @@
         <router-link v-if="$route.path !== '/'" to="/" class="witharrow">
           Вернуться к списку
         </router-link>
-        <router-link to="/signin"> Вход </router-link>
-        <router-link to="/signup">Регистрация</router-link>
+        <router-link v-if="!this.$store.state.isAuth" to="/signin">
+          Вход
+        </router-link>
+        <router-link v-if="!this.$store.state.isAuth" to="/signup"
+          >Регистрация</router-link
+        >
+        <a v-if="this.$store.state.isAuth">{{ userName }}</a>
+        <a @click="logout" v-if="this.$store.state.isAuth">Выход</a>
       </nav>
     </div>
   </header>
@@ -16,7 +22,31 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 @Component
-export default class Header extends Vue {}
+export default class Header extends Vue {
+  userName: string = "";
+  mounted() {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      const user = JSON.parse(userString);
+      this.userName = user.name;
+    } else {
+      console.log("No user found in localStorage");
+    }
+  }
+  beforeUpdate() {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      const user = JSON.parse(userString);
+      this.userName = user.name;
+    } else {
+      console.log("No user found in localStorage");
+    }
+  }
+  logout() {
+    this.$router.push("/signin");
+    this.$store.commit("logout");
+  }
+}
 </script>
 
 <style lang="sass" scoped>
@@ -47,6 +77,7 @@ export default class Header extends Vue {}
             text-align: left
 
         & a
+            cursor: pointer
             padding: 0 20px
             font-size: 20px
             position: relative
