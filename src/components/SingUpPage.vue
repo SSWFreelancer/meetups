@@ -2,19 +2,25 @@
   <form class="form" @submit.prevent="register">
     <div class="form__container">
       <div class="form__content">
-        <Title>Регистрация</Title>
+        <Title> {{ $t("message.signup") }}</Title>
         <Input v-model="email" type="email">Email</Input>
-        <Input v-model="name" type="text">Имя</Input>
-        <Input v-model="password" type="password">Пароль</Input>
-        <Input v-model="confirmPassword" type="password">Повтор пароля</Input>
+        <Input v-model="name" type="text">{{ $t("message.name") }}</Input>
+        <Input v-model="password" type="password">{{
+          $t("message.password")
+        }}</Input>
+        <Input v-model="confirmPassword" type="password">{{
+          $t("message.rePassword")
+        }}</Input>
         <div class="form__agree">
           <input v-model="agree" required type="checkbox" id="agree" />
-          <label for="agree"> <span></span> Я согласен с условиями </label>
+          <label for="agree">
+            <span></span> {{ $t("message.agreement") }}
+          </label>
         </div>
-        <Button type="submit">Зарегистрироваться</Button>
+        <Button type="submit">{{ $t("message.signup") }}</Button>
         <div class="form__bottom">
-          Уже есть аккаунт?
-          <router-link to="/signin">Войдите</router-link>
+          {{ $t("message.haveAccount") }}
+          <router-link to="/signin">{{ $t("message.login") }}</router-link>
         </div>
       </div>
     </div>

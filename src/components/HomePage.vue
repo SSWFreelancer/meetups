@@ -7,25 +7,29 @@
             :class="{ active: filter === 'all' }"
             @click="setFilter('all')"
           >
-            Все
+            {{ $t("message.all") }}
           </button>
           <button
             :class="{ active: filter === 'closed' }"
             @click="setFilter('closed')"
           >
-            Прошедшие
+            {{ $t("message.past") }}
           </button>
           <button
             :class="{ active: filter === 'register' }"
             @click="setFilter('register')"
           >
-            Ожидаемые
+            {{ $t("message.expected") }}
           </button>
         </nav>
         <div class="home__actions">
           <div class="home__search">
             <img src="@/assets/images/icons/search.svg" alt="" />
-            <input type="text" placeholder="Поиск" v-model="searchQuery" />
+            <input
+              type="text"
+              :placeholder="$t('message.search')"
+              v-model="searchQuery"
+            />
           </div>
         </div>
       </div>
@@ -45,7 +49,7 @@
           />
         </router-link>
       </div>
-      <div v-else class="home__none">Нет совпадений...</div>
+      <div v-else class="home__none">{{ $t("message.noMatches") }}</div>
     </div>
     <SuccessMessage
       v-if="this.$store.state.justLoggedIn"

@@ -1,19 +1,29 @@
 <template>
   <header class="header">
     <div class="header__container">
-      <router-link to="/"><h1 class="header__title">Meetups</h1></router-link>
+      <router-link to="/"
+        ><h1 class="header__title">{{ $t("message.logo") }}</h1></router-link
+      >
       <nav class="header__menu">
         <router-link v-if="$route.path !== '/'" to="/" class="witharrow">
-          Вернуться к списку
+          {{ $t("message.backTolist") }}
         </router-link>
         <router-link v-if="!this.$store.state.isAuth" to="/signin">
-          Вход
+          {{ $t("message.login") }}
         </router-link>
-        <router-link v-if="!this.$store.state.isAuth" to="/signup"
-          >Регистрация</router-link
-        >
+        <router-link v-if="!this.$store.state.isAuth" to="/signup">{{
+          $t("message.signup")
+        }}</router-link>
         <a v-if="this.$store.state.isAuth">{{ userName }}</a>
-        <a @click="logout" v-if="this.$store.state.isAuth">Выход</a>
+        <a @click="logout" v-if="this.$store.state.isAuth">{{
+          $t("message.logout")
+        }}</a>
+        <div class="header__select">
+          <select v-model="$i18n.locale">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+          </select>
+        </div>
       </nav>
     </div>
   </header>
@@ -64,6 +74,35 @@ export default class Header extends Vue {
         align-items: center
         @media(max-width: 600px)
             align-items: stretch
+    &__select
+      position: relative
+      & select
+        width: 100%
+        cursor: pointer
+        border-radius: 16px
+        border: 1px solid #b8c5e2
+        padding: 10px 15px
+        color: #34423f
+        padding-right: 35px
+        font-size: 18px
+        appearance: none
+        display: flex
+        align-items: center
+        transition: all 0.3s ease 0s
+        gap: 10px
+        &:hover
+          border-color: #4c6bb6
+      &:after
+        content: ""
+        position: absolute
+        top: 50%
+        right: 15px
+        transform: translate(0, -60%) rotate(45deg)
+        border: solid #cbd4e9
+        border-width: 0 3px 3px 0
+        display: inline-block
+        padding: 3px
+
     &__menu
         display: flex
         flex-wrap: wrap

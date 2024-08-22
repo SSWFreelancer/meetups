@@ -2,17 +2,17 @@
   <form class="form" @submit.prevent="login">
     <div class="form__container">
       <div class="form__content">
-        <Title>Вход </Title>
+        <Title> {{ $t("message.login") }} </Title>
         <Input v-model="email" type="email" placeholder="demo@email"
           >Email</Input
         >
-        <Input v-model="password" type="password" placeholder="password"
-          >Пароль</Input
-        >
-        <Button>Войти</Button>
+        <Input v-model="password" type="password" placeholder="password">{{
+          $t("message.password")
+        }}</Input>
+        <Button>{{ $t("message.login") }}</Button>
         <div class="form__bottom">
-          Нет аккаунта?
-          <router-link to="/signup">Зарегистрируйтесь</router-link>
+          {{ $t("message.noAccount") }}
+          <router-link to="/signup">{{ $t("message.signup") }}</router-link>
         </div>
       </div>
     </div>
