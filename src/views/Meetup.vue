@@ -11,6 +11,9 @@ import MeetUpPage from "@/components/MeetUpPage.vue";
   }
 })
 export default class MeetupView extends Vue {
+  mounted() {
+    window.scrollTo(0, 0);
+  }
 }
 </script>
 

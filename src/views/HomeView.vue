@@ -10,5 +10,9 @@ import HomePage from "@/components/HomePage.vue";
     HomePage,
   },
 })
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  mounted() {
+    window.scrollTo(0, 0);
+  }
+}
 </script>

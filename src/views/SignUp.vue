@@ -9,5 +9,9 @@ import SingUpPage from "@/components/SingUpPage.vue";
     SingUpPage,
   },
 })
-export default class SingUpView extends Vue {}
+export default class SingUpView extends Vue {
+  mounted() {
+    window.scrollTo(0, 0);
+  }
+}
 </script>

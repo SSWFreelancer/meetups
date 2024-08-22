@@ -47,6 +47,11 @@
       </div>
       <div v-else class="home__none">Нет совпадений...</div>
     </div>
+    <SuccessMessage
+      v-if="this.$store.state.justLoggedIn"
+      message="Вы вошли в аккаунт"
+      :visible="showSuccess"
+    />
   </div>
 </template>
 
@@ -54,12 +59,21 @@
 import meetupsData from "@/mixins/meetups.js";
 import { Component, Vue } from "vue-property-decorator";
 import CardThumb from "@/components/CardThumb.vue";
+import SuccessMessage from "./SuccessMessage.vue";
 @Component({
   components: {
     CardThumb,
+    SuccessMessage,
   },
 })
 export default class HomePage extends Vue {
+  showSuccess: boolean = false;
+  mounted() {
+    this.showSuccess = true;
+    setTimeout(() => {
+      this.showSuccess = false;
+    }, 2000);
+  }
   meetups = meetupsData.data().meetups;
   filter: string = "all";
   setFilter(filter: string) {

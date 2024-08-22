@@ -9,5 +9,9 @@ import SingInPage from "@/components/SignInPage.vue";
     SingInPage,
   },
 })
-export default class SingInView extends Vue {}
+export default class SingInView extends Vue {
+  mounted() {
+    window.scrollTo(0, 0);
+  }
+}
 </script>
